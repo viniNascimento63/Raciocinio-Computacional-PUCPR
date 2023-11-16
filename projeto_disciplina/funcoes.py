@@ -81,7 +81,6 @@ def incluir_estudante(lista_alunos):
 
 
 def mostrar_lista_estudantes(lista_alunos):
-    print('# Opção selecionada: 2. Listar')
 
     if len(lista_alunos) > 0:
         print(f'\nLista de alunos:')
@@ -94,6 +93,8 @@ def mostrar_lista_estudantes(lista_alunos):
 
 
 def editar_informacao_aluno(lista_alunos):
+
+    print('\n# Opção selecionada: 2. Editar')
 
     entrada = int(input('\n# Digite o código do estudante para editar as informações: '))
     print('Estudante selecionado!')
@@ -124,3 +125,18 @@ def editar_informacao_aluno(lista_alunos):
 
     return lista_alunos
 
+
+def exluir_aluno(lista_alunos):
+    print('# Opção selecionada: 4. Excluir')
+    mostrar_lista_estudantes(lista_alunos)
+
+    entrada = int(input('\n# Digite o código do estudante a ser exluído: '))
+    for dicionario in lista_alunos:
+        # Verifica se a entrada é uma chave no dicionário atual
+        if entrada in dicionario.values():
+            print(f'# Estudante {dicionario.get("Nome")} removido(a) com sucesso!')
+            lista_alunos.remove(dicionario)
+        else:
+            pass
+
+    return lista_alunos
