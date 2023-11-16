@@ -7,10 +7,10 @@ alunos = []
 print('\nBem-vindo(a) ao Sistema PUC!')
 
 while True:
-    # sleep(1.5)
+    sleep(1.5)
     entrada = funcoes.menu_principal()
     
-    # sleep(1.5)
+    sleep(1.5)
     if entrada == 0:
         print('# Opção selecionada: (0) Sair'
               '\n# Você saiu.')
@@ -34,10 +34,10 @@ while True:
         continue
         # print('# Opção selecionada: (5) Matrículas')
 
-    # sleep(1.5)
+    sleep(1.5)
     entrada = funcoes.menu_operacoes()
 
-    # sleep(1.5)
+    sleep(1.5)
 
     # VOLTAR AO MENU PRINCIPAL
     if entrada == 0:
@@ -50,35 +50,17 @@ while True:
 
     # MOSTRAR LISTA DE ESTUDANTES
     elif entrada == 2:
+        print('# Opção selecionada: 2. Listar')
         alunos = funcoes.mostrar_lista_estudantes(alunos)
 
     # EDITAR INFORMAÇÕES DE ESTUDANTE
     elif entrada == 3:
-        print('\n# Opção selecionada: 2. Editar')
-
-        # MOSTRA LISTA DE ESTUDANTES
         funcoes.mostrar_lista_estudantes(alunos)
-
-        # EDITA INFORMAÇÕES DO ESTUDANTE
         alunos = funcoes.editar_informacao_aluno(alunos)
 
     # EXCLUIR ESTUDANTE
     elif entrada == 4:
-        if len(alunos) > 0:
-            print(f'\nLista de alunos:')
-            for aluno in alunos:
-                print(f'- {aluno}')
-        else:
-            print('# Não há estudantes cadastrados :(')
+        alunos = funcoes.exluir_aluno(alunos)
 
-        entrada = int(input('\n# Digite o código do estudante a ser exluído: '))
-        for dicionario in alunos:
-            # Verifica se a entrada é uma chave no dicionário atual
-            if entrada in dicionario.values():
-                print(f'# Estudante {dicionario.get("Nome")} removido(a) com sucesso!')
-                alunos.remove(dicionario)
-            else:
-                pass
-
-# sleep(1.5)
+sleep(1.5)
 print('\n# Fim da aplicação.')
