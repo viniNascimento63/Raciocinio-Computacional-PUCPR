@@ -1,5 +1,0 @@
-# Ignorar todos os arquivos .pyc
-*.pyc
-
-# Ignorar diretório .gitignore
-.gitignore/
