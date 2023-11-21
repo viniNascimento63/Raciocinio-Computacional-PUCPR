@@ -77,8 +77,7 @@ def incluir_estudante(lista_alunos):
 
         if entrada.lower() == 'n':
             return lista_alunos
-            break
-
+            
 
 def mostrar_lista_estudantes(lista_alunos):
 
@@ -140,3 +139,6 @@ def exluir_aluno(lista_alunos):
             pass
 
     return lista_alunos
+
+def salvar_lista_estudante(lista_alunos, arquivo):
+    pass
