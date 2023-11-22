@@ -1,3 +1,5 @@
+import pickle
+
 def menu_principal():
     
     while True:
@@ -63,6 +65,7 @@ def incluir_estudante(lista_alunos):
         }
 
         lista_alunos.append(estudante)
+        salvar_lista_estudantes(lista_alunos)
 
         # sleep(1.5)
         print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
@@ -140,5 +143,12 @@ def exluir_aluno(lista_alunos):
 
     return lista_alunos
 
-def salvar_lista_estudante(lista_alunos, arquivo):
+
+def salvar_lista_estudantes(lista_alunos, arquivo):
+    with open("dados_alunos.json", "wb", encoding="utf-8") as arquivo:
+        pickle.dump(lista_alunos, arquivo)   
+
+    return None
+
+def recuperar_dados_estudantes():
     pass
