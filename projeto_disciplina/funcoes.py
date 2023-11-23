@@ -66,7 +66,7 @@ def incluir_estudante(lista_alunos):
         }
 
         lista_alunos.append(estudante)
-        salvar_lista_estudantes(lista_alunos, )
+        salvar_dados(lista_alunos, 'dados_alunos')
 
         # sleep(1.5)
         print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
@@ -145,16 +145,20 @@ def exluir_aluno(lista_alunos):
     return lista_alunos
 
 
-def salvar_lista_estudantes(lista_alunos):
-    with open("dados_alunos.json", "a", encoding="utf-8") as arquivo:
-        json.dump(lista_alunos, arquivo)   
+def salvar_dados(dados, nome_arquivo):
+    with open(nome_arquivo + '.json', "a", encoding="utf-8") as arquivo:
+        json.dump(dados, arquivo)
+        arquivo.close() 
 
     return None
 
-def recuperar_dados_estudantes():
-    with open("dados_alunos.json", "r", encoding="UTF-8") as arquivo:
-        dados_lidos = json.load(arquivo)
-    print(dados_lidos)
-    return None
+def recuperar_dados(dados):
+    dicionario = {}
+    try:
+        with open(dados.json, 'r') as arquivo:
+            dicionario = json.load(arquivo)
+            arquivo.close()
+    except FileNotFoundError:
+        salvar_dados(dicionario, dados)
+        return dicionario
 
-recuperar_dados_estudantes()
