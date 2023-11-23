@@ -147,18 +147,23 @@ def exluir_aluno(lista_alunos):
 
 def salvar_dados(dados, nome_arquivo):
     with open(nome_arquivo + '.json', "a", encoding="utf-8") as arquivo:
+
+        # Adiciona uma quebra de linha se o arquivo não estiver vazio
+        if arquivo.tell() > 0:
+            arquivo.write('\n')
+            
         json.dump(dados, arquivo)
         arquivo.close() 
 
     return None
 
-def recuperar_dados(dados):
-    dicionario = {}
+def recuperar_dados(nome_arquivo):
+    dados_recuperados = {}
     try:
-        with open(dados.json, 'r') as arquivo:
-            dicionario = json.load(arquivo)
+        with open(nome_arquivo + '.json', 'r') as arquivo:
+            dados_recupedados = json.load(arquivo)
             arquivo.close()
     except FileNotFoundError:
-        salvar_dados(dicionario, dados)
-        return dicionario
+        print('Arquivo não encontrado')
+        return dados_recuperados
 
