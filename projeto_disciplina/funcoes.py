@@ -50,7 +50,7 @@ def menu_operacoes():
     return entrada
         
 
-def incluir_estudante(lista_alunos):
+def incluir_estudante(lista_alunos=object):
 
     print('# Opção selecionada: 1. Incluir')
 
@@ -66,7 +66,7 @@ def incluir_estudante(lista_alunos):
         }
 
         lista_alunos.append(estudante)
-        salvar_dados(lista_alunos, 'dados_alunos')
+        salvar_dados(lista_alunos, 'dados_alunos.json')
 
         # sleep(1.5)
         print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
@@ -146,24 +146,25 @@ def exluir_aluno(lista_alunos):
 
 
 def salvar_dados(dados, nome_arquivo):
-    with open(nome_arquivo + '.json', "a", encoding="utf-8") as arquivo:
 
-        # Adiciona uma quebra de linha se o arquivo não estiver vazio
-        if arquivo.tell() > 0:
-            arquivo.write('\n')
-            
+    dicionarios = recuperar_dados(nome_arquivo)
+    for dicionario in dicionarios:
+        dados.append(dicionario)
+
+    # Escreve no arquivo os dados
+    with open(nome_arquivo, "w", encoding='utf-8') as arquivo: 
         json.dump(dados, arquivo)
-        arquivo.close() 
-
+        arquivo.close()
     return None
 
-def recuperar_dados(nome_arquivo):
-    dados_recuperados = {}
-    try:
-        with open(nome_arquivo + '.json', 'r') as arquivo:
-            dados_recupedados = json.load(arquivo)
-            arquivo.close()
-    except FileNotFoundError:
-        print('Arquivo não encontrado')
-        return dados_recuperados
 
+def recuperar_dados(nome_arquivo):
+    try:
+        with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
+            dados_recuperados = json.load(arquivo)
+            arquivo.close()
+        return dados_recuperados
+    except FileNotFoundError:
+        # Se o arquivo não existe, retorna uma lista vazia
+        return []
+    
