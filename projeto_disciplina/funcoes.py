@@ -82,16 +82,16 @@ def incluir_estudante():
             return lista_alunos
             
 
-def listar_estudantes():
+def listar(nome_arquivo=str):
 
-    dados_recuperados = recuperar_dados('dados_alunos.json')
+    dados_recuperados = recuperar_dados(nome_arquivo)
     
     if len(dados_recuperados) > 0:
-        print(f'\nLista de alunos:')
-        for aluno in dados_recuperados:
-            print(f'- {aluno}')
+        print(f'\nListagem:')
+        for item in dados_recuperados:
+            print(f'- {item}')
     else:
-        print('# Não há estudantes cadastrados :(')
+        print('# Não há itens cadastrados :(')
     
     return None
 
@@ -132,7 +132,7 @@ def editar_informacao_aluno(lista_alunos):
 
 def exluir_aluno(lista_alunos):
     print('# Opção selecionada: 4. Excluir')
-    listar_estudantes()
+    listar()
 
     entrada = int(input('\n# Digite o código do estudante a ser exluído: '))
     for dicionario in lista_alunos:
