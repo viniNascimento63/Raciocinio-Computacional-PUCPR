@@ -3,7 +3,6 @@
 from time import sleep
 import funcoes
 
-alunos = []
 print('\nBem-vindo(a) ao Sistema PUC!')
 
 while True:
@@ -44,19 +43,19 @@ while True:
         print('# Opção selecionada: Voltar ao menu principal')
         continue
 
-    # ADICIONAR ESTUDANTES NA LISTA
+    # ADICIONAR ITENS NA LISTA
     elif entrada == 1:
-        alunos = funcoes.incluir_estudante(alunos)
+        funcoes.incluir_estudante()
 
-    # MOSTRAR LISTA DE ESTUDANTES
+    # LISTAR
     elif entrada == 2:
         print('# Opção selecionada: 2. Listar')
-        alunos = funcoes.mostrar_lista_estudantes(alunos)
+        funcoes.listar('dados_alunos')
 
     # EDITAR INFORMAÇÕES DE ESTUDANTE
     elif entrada == 3:
-        funcoes.mostrar_lista_estudantes(alunos)
-        alunos = funcoes.editar_informacao_aluno(alunos)
+        funcoes.listar()
+        funcoes.editar_informacao_aluno(alunos)
 
     # EXCLUIR ESTUDANTE
     elif entrada == 4:
