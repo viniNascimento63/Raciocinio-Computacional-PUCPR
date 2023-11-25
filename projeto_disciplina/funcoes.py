@@ -1,5 +1,4 @@
 import json
-import pickle
 
 def menu_principal():
     
@@ -50,8 +49,8 @@ def menu_operacoes():
     return entrada
         
 
-def incluir_estudante(lista_alunos=object):
-
+def incluir_estudante():
+    lista_alunos = []
     print('# Opção selecionada: 1. Incluir')
 
     while True:
@@ -66,7 +65,6 @@ def incluir_estudante(lista_alunos=object):
         }
 
         lista_alunos.append(estudante)
-        salvar_dados(lista_alunos, 'dados_alunos.json')
 
         # sleep(1.5)
         print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
@@ -78,20 +76,23 @@ def incluir_estudante(lista_alunos=object):
                 continue
             else:
                 break
-
+        
         if entrada.lower() == 'n':
+            salvar_dados(lista_alunos, 'dados_alunos')
             return lista_alunos
             
 
-def mostrar_lista_estudantes(lista_alunos):
+def listar_estudantes():
 
-    if len(lista_alunos) > 0:
+    dados_recuperados = recuperar_dados('dados_alunos.json')
+    
+    if len(dados_recuperados) > 0:
         print(f'\nLista de alunos:')
-        for aluno in lista_alunos:
+        for aluno in dados_recuperados:
             print(f'- {aluno}')
     else:
         print('# Não há estudantes cadastrados :(')
-
+    
     return None
 
 
@@ -131,7 +132,7 @@ def editar_informacao_aluno(lista_alunos):
 
 def exluir_aluno(lista_alunos):
     print('# Opção selecionada: 4. Excluir')
-    mostrar_lista_estudantes(lista_alunos)
+    listar_estudantes()
 
     entrada = int(input('\n# Digite o código do estudante a ser exluído: '))
     for dicionario in lista_alunos:
@@ -147,24 +148,27 @@ def exluir_aluno(lista_alunos):
 
 def salvar_dados(dados, nome_arquivo):
 
-    dicionarios = recuperar_dados(nome_arquivo)
-    for dicionario in dicionarios:
-        dados.append(dicionario)
+    lista = recuperar_dados(nome_arquivo)
+    
+    for dicionario in dados:
+        #if dicionario in lista:
+            #continue
+        lista.append(dicionario)
 
     # Escreve no arquivo os dados
-    with open(nome_arquivo, "w", encoding='utf-8') as arquivo: 
-        json.dump(dados, arquivo)
+    with open(nome_arquivo + '.json', "w", encoding='utf-8') as arquivo: 
+        json.dump(lista, arquivo)
         arquivo.close()
     return None
 
 
 def recuperar_dados(nome_arquivo):
     try:
-        with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
+        with open(nome_arquivo + '.json', 'r', encoding='utf-8') as arquivo:
             dados_recuperados = json.load(arquivo)
             arquivo.close()
         return dados_recuperados
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         # Se o arquivo não existe, retorna uma lista vazia
         return []
     
