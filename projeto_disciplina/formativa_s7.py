@@ -7,10 +7,10 @@ alunos = []
 print('\nBem-vindo(a) ao Sistema PUC!')
 
 while True:
-    sleep(1.5)
+    #sleep(1.5)
     entrada = funcoes.menu_principal()
     
-    sleep(1.5)
+    #sleep(1.5)
     if entrada == 0:
         print('# Opção selecionada: (0) Sair'
               '\n# Você saiu.')
@@ -34,10 +34,10 @@ while True:
         continue
         # print('# Opção selecionada: (5) Matrículas')
 
-    sleep(1.5)
+    #sleep(1.5)
     entrada = funcoes.menu_operacoes()
 
-    sleep(1.5)
+    #sleep(1.5)
 
     # VOLTAR AO MENU PRINCIPAL
     if entrada == 0:
@@ -62,5 +62,5 @@ while True:
     elif entrada == 4:
         alunos = funcoes.exluir_aluno(alunos)
 
-sleep(1.5)
+#sleep(1.5)
 print('\n# Fim da aplicação.')
