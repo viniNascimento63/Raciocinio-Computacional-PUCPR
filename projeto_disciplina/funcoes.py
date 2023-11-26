@@ -1,33 +1,45 @@
 import json
 
-def menu_principal():
+def menu():
     
     while True:
         try:
             # Menu principal do sistema
             print('\nMenu principal:'
                 '\n(1) Estudantes'
-                '\n(2) Disciplinas'
-                '\n(3) Professores'
+                '\n(2) Professores'
+                '\n(3) Disciplinas'
                 '\n(4) Turmas'
                 '\n(5) Matrículas'
                 '\n(0) Sair')
             
-
-            entrada = int(input('\n# Digite o número da opção desejada: '))
-            if entrada < 0 or entrada > 5:
+            entrada1 = int(input('\n# Digite o número da opção desejada: '))
+            if entrada1 < 0 or entrada1 > 5:
                 print('# Opção inválida, Tente novamente.')
                 # sleep(1.5)
                 continue
-            return entrada
             break
         except ValueError:
             print('# Valor inválido! Digite apenas valores numéricos.')
             # sleep(2)
             continue
 
+    if entrada1 == 0:
+        print('# Opção selecionada: (0) Sair'
+              '\n# Você saiu.') 
+        return entrada1
+    elif entrada1 == 1:
+        print('# Opção selecionada: (1) Estudantes')
+    elif entrada1 == 2:
+        print('# Opção selecionada: (2) Professores ')
+    elif entrada1 == 3:
+        print('# Opção selecionada: (3) Disciplinas')
+    elif entrada1 == 4:
+        print('# Opção selecionada: (4) Turmas ')
+    else:    
+        print('# Opção selecionada: (5) Matrículas')
 
-def menu_operacoes():
+    # Menu de operações
     while True:
         try:
             print('\n# Menu de operações:'
@@ -37,8 +49,8 @@ def menu_operacoes():
                     '\n(4) Excluir'
                     '\n(0) Voltar para o menu principal')
             
-            entrada = int(input('\n# Digite o número da opção desejada: '))
-            if entrada < 0 or entrada > 4:
+            entrada2 = int(input('\n# Digite o número da opção desejada: '))
+            if entrada2 < 0 or entrada2 > 4:
                 print('# Opção inválida! Tente novamente.')
                 continue
             break
@@ -46,43 +58,197 @@ def menu_operacoes():
             print('# Valor inválido! Digite apenas valores numéricos.')
             # sleep(2)
             continue 
-    return entrada
-        
 
-def incluir_estudante():
-    lista_alunos = []
+    # VOLTAR AO MENU PRINCIPAL
+    if entrada2 == 0:
+        print('# Opção selecionada: Voltar ao menu principal')
+        
+    # ADICIONAR ITENS NA LISTA
+    elif entrada2 == 1:
+        incluir(entrada1)
+        
+    # LISTAR
+    elif entrada2 == 2:
+        listar(entrada2)
+                
+    # EDITAR INFORMAÇÕES DE ESTUDANTE
+    elif entrada2 == 3:
+        listar()
+        editar_informacao_aluno(alunos)
+
+    # EXCLUIR
+    elif entrada2 == 4:
+        listar(entrada1)
+        alunos = exluir_aluno(alunos)
+
+
+def incluir(entrada):
+
     print('# Opção selecionada: 1. Incluir')
 
-    while True:
-        codigo = int(input('\n# Informe o código do estudante: '))
-        nome = input('# Informe o nome do estudante: ')
-        cpf = int(input('# Informe o CPF do estudante (sem pontos ou espaços): '))
-
-        estudante = {
-            'Código': codigo,
-            'Nome': nome,
-            'CPF': cpf
-        }
-
-        lista_alunos.append(estudante)
-
-        # sleep(1.5)
-        print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
-
+    # Incluir estudante
+    if entrada == 1:
+        alunos = []
         while True:
-            entrada = input('\n# Incluir mais estudantes (s/n)? ')
-            if entrada.lower() != 's' and entrada.lower() != 'n':
-                print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
-                continue
-            else:
-                break
+            codigo = int(input('\n# Informe o código do estudante: '))
+            nome = input('# Informe o nome do estudante: ')
+            cpf = input('# Informe o CPF do estudante (sem pontos ou espaços): ')
+
+            estudante = {
+                'Código': codigo,
+                'Nome': nome,
+                'CPF': cpf
+            }
+
+            alunos.append(estudante)
+
+            # sleep(1.5)
+            print(f'\n# Estudante {nome} adicionado(a) com sucesso!')
+
+            while True:
+                entrada = input('\n# Incluir mais estudantes (s/n)? ')
+                if entrada.lower() != 's' and entrada.lower() != 'n':
+                    print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
+                    continue
+                else:
+                    break
+            
+            if entrada.lower() == 'n':
+                salvar_dados(alunos, 'estudantes')
+                return alunos
+    
+    # Incluir professores
+    if entrada == 2:
         
-        if entrada.lower() == 'n':
-            salvar_dados(lista_alunos, 'dados_alunos')
-            return lista_alunos
+        professores = []
+        while True:
+            codigo = int(input('\n# Informe o código do(a) professor(a): '))
+            nome = input('# Informe o nome do(a) professor(a): ')
+            cpf = input('# Informe o CPF do(a) professor(a) (sem pontos ou espaços): ')
+
+            professor = {
+                'Código': codigo,
+                'Nome': nome,
+                'CPF': cpf
+            }
+
+            professores.append(professor)
+
+            # sleep(1.5)
+            print(f'\n# Professor(a) {nome} adicionado(a) com sucesso!')
+
+            while True:
+                entrada = input('\n# Incluir mais professores (s/n)? ')
+                if entrada.lower() != 's' and entrada.lower() != 'n':
+                    print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
+                    continue
+                else:
+                    break
+            
+            if entrada.lower() == 'n':
+                salvar_dados(professores, 'professores')
+                return professores
+
+    # Incluir disciplinas
+    if entrada == 3:
+        disciplinas = []
+        while True:
+            codigo = int(input('\n# Informe o código da disiciplina: '))
+            nome = input('# Informe o nome da disciplina: ')
+
+            disciplina = {
+                'Código': codigo,
+                'Nome': nome
+            }
+
+            disciplinas.append(disciplina)
+
+            print(f'\n# Disciplina {nome} adicionada com sucesso!')
+
+            while True:
+                entrada = input('\n# Incluir mais disciplinas (s/n)? ')
+                if entrada.lower() != 's' and entrada.lower() != 'n':
+                    print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
+                    continue
+                else:
+                    break
+            
+            if entrada.lower() == 'n':
+                salvar_dados(disciplinas, 'disciplinas')
+                return disciplinas
+
+    # Incluir turmas
+    if entrada == 4:
+        turmas = []
+        while True:
+            codigo = int(input('\n# Informe o código da turma: '))
+            cod_prof = int(input('# Informe o código do(a) professor(a) associado à turma: '))
+            cod_disciplina = int(input('\n# Informe o código da disiciplina associado à turma: '))
+
+            turma = {
+                'Código': codigo,
+                'Código do professor': cod_prof,
+                'Código da disciplina': cod_disciplina
+            }
+
+            turmas.append(turma)
+
+            print(f'\n# Turma {nome} adicionada com sucesso!')
+
+            while True:
+                entrada = input('\n# Incluir mais turmas (s/n)? ')
+                if entrada.lower() != 's' and entrada.lower() != 'n':
+                    print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
+                    continue
+                else:
+                    break
+            
+            if entrada.lower() == 'n':
+                salvar_dados(turmas, 'turmas')
+                return turmas
+
+    # Incluir matérias
+    if entrada == 5:
+        matriculas = []
+        while True:
+            cod_turma = int(input('\n# Informe o código da turma: '))
+            cod_estudante = int(input('\n# Informe o código do(a) estudante: '))
+
+            matricula = {
+                'Código da turma': cod_turma,
+                'Código do(a) estudante': cod_estudante
+            }
+
+            matriculas.append(matricula)
+
+            print(f'\n# Matrícula {codigo} adicionada com sucesso!')
+
+            while True:
+                entrada = input('\n# Incluir mais matrículas (s/n)? ')
+                if entrada.lower() != 's' and entrada.lower() != 'n':
+                    print("\n# Valor inválido. Digite 's' ou 'n' para continuar.")
+                    continue
+                else:
+                    break
+            
+            if entrada.lower() == 'n':
+                salvar_dados(matriculas, 'matriculas')
+                return matriculas
             
 
-def listar(nome_arquivo=str):
+def listar(entrada):
+
+    print('# Opção selecionada: 2. Listar')
+    if entrada == 1:
+        nome_arquivo = 'estudantes'
+    elif entrada == 2:
+        nome_arquivo = 'professores'
+    elif entrada == 3:
+        nome_arquivo = 'disciplinas'
+    elif entrada == 3:
+        nome_arquivo = 'turmas'
+    else:
+        nome_arquivo = 'matriculas'
 
     dados_recuperados = recuperar_dados(nome_arquivo)
     
