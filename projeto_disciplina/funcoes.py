@@ -69,12 +69,13 @@ def menu():
         
     # LISTAR
     elif entrada2 == 2:
-        listar(entrada2)
+        print('# Opção selecionada: 2. Listar')
+        listar(entrada1)
                 
-    # EDITAR INFORMAÇÕES DE ESTUDANTE
+    # EDITAR INFORMAÇÕES
     elif entrada2 == 3:
-        listar()
-        editar_informacao_aluno(alunos)
+        listar(entrada1)
+        editar(entrada1)
 
     # EXCLUIR
     elif entrada2 == 4:
@@ -238,14 +239,14 @@ def incluir(entrada):
 
 def listar(entrada):
 
-    print('# Opção selecionada: 2. Listar')
+    
     if entrada == 1:
         nome_arquivo = 'estudantes'
     elif entrada == 2:
         nome_arquivo = 'professores'
     elif entrada == 3:
         nome_arquivo = 'disciplinas'
-    elif entrada == 3:
+    elif entrada == 4:
         nome_arquivo = 'turmas'
     else:
         nome_arquivo = 'matriculas'
@@ -262,38 +263,64 @@ def listar(entrada):
     return None
 
 
-def editar_informacao_aluno(lista_alunos):
+def editar(entrada):
 
-    print('\n# Opção selecionada: 2. Editar')
+    print('\n# Opção selecionada: 3. Editar')
 
-    entrada = int(input('\n# Digite o código do estudante para editar as informações: '))
-    print('Estudante selecionado!')
+    # Editar estudantes
+    if entrada == 1:
 
-    for indice, dicionario in enumerate(lista_alunos):
+        listar(entrada)
+        lista_recuperada = recuperar_dados('estudantes')
 
-        # Verifica se a entrada é uma chave no dicionário atual
-        if entrada in dicionario.values():
+        cod_estudante = int(input('\n# Digite o código do estudante para editar as informações: '))
+        print('Estudante selecionado!')
 
-            # Recebe as novas informações do estudante
-            codigo = int(input('\n# Atualize o código do estudante: '))
-            nome = input('# Digite o nome do estudante: ')
-            cpf = int(input('# Digite o CPF do estudante (sem pontos ou espaços): '))
+        for indice, dicionario in enumerate(lista_recuperada):
 
-            # Um novo dicionario recebe as informações atualizadas
-            estudante = {
-                "Código": codigo,
-                "Nome": nome,
-                "CPF": cpf
-            }
+            # Verifica se a entrada é o valor de uma chave no dicionário atual
+            if cod_estudante in dicionario.values():
 
-            # Substitui os dados antigos do estudante pelos novos
-            lista_alunos[indice] = estudante
+                # Recebe as novas informações do estudante
+                codigo = int(input('\n# Atualize o código do estudante: '))
+                nome = input('# Digite o nome do estudante: ')
+                cpf = input('# Digite o CPF do estudante (sem pontos ou espaços): ')
 
-            print(f'\n# Informações de {dicionario["Nome"]} atualizadas com sucesso!')
-        else:
-            pass
+                # Um novo dicionario recebe as informações atualizadas
+                estudante = {
+                    "Código": codigo,
+                    "Nome": nome,
+                    "CPF": cpf
+                }
 
-    return lista_alunos
+                # Substitui os dados antigos do estudante pelos novos
+                lista_recuperada[indice] = estudante
+
+                # Escreve os dados atualizados no arquivo 'estudantes.json'
+                salvar_dados(lista_recuperada, 'estudantes')
+
+                print(f'\n# Informações de {estudante["Nome"]} atualizadas com sucesso!')
+            else:
+                pass
+    
+    # Editar professores
+    elif entrada == 2:
+        pass
+
+    # Editar disciplinas
+    elif entrada == 3:
+        pass
+
+    # Editar turmas
+    elif entrada == 4:
+        pass
+
+    # Editar matrículas
+    else:
+        pass
+
+
+    return None
 
 
 def exluir_aluno(lista_alunos):
